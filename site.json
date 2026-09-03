@@ -1,0 +1,177 @@
+{
+  "profile": {
+    "name": "Elalim Mohamed",
+    "full_name": "Elalim Eltayeb Abdelrahman Mohamed",
+    "title": "Medical Doctor · Researcher · Medical Educator",
+    "tagline": "Building at the intersection of clinical medicine, neuroscience, research and education — with a focus on evidence, learning and impact.",
+    "email": "alalmaltyb52@gmail.com",
+    "orcid": "https://orcid.org/0009-0009-5415-1967",
+    "linkedin": "",
+    "scholar": "",
+    "researchgate": "",
+    "image": "assets/profile.jpg"
+  },
+  "stats": [
+    {
+      "number": "2026",
+      "label": "MBBS · First Class Honors"
+    },
+    {
+      "number": "4,000+",
+      "label": "Students & doctors trained"
+    },
+    {
+      "number": "1",
+      "label": "Medical research book"
+    },
+    {
+      "number": "2",
+      "label": "Research & education initiatives"
+    }
+  ],
+  "about": {
+    "headline": "A clinician with a researcher's mindset.",
+    "intro": "I am a medical doctor, researcher and medical educator interested in turning scientific evidence into better learning, better decisions and better health outcomes.",
+    "body1": "I graduated with an MBBS from the Faculty of Medicine, Red Sea University, Sudan, with First Class Honors in May 2026. My academic work spans medical education, healthcare research, quality improvement, scientific writing and evidence synthesis.",
+    "body2": "My longer-term direction brings together clinical medicine, neuroscience/neurosurgery, research and education — with a strong interest in collaborative, internationally relevant academic work."
+  },
+  "research": [
+    {
+      "title": "Neurosurgery & TBI",
+      "text": "Traumatic brain injury, trauma care and evidence-based surgical decision-making."
+    },
+    {
+      "title": "Evidence Synthesis",
+      "text": "Systematic reviews, meta-analysis and clinically useful synthesis of medical evidence."
+    },
+    {
+      "title": "Public Health",
+      "text": "Epidemiology, health systems, chronic disease and health challenges in Sudan."
+    },
+    {
+      "title": "Medical Education",
+      "text": "Research training, curriculum development, student learning and academic mentoring."
+    },
+    {
+      "title": "AI in Medicine",
+      "text": "Responsible integration of artificial intelligence into medical education and academic practice."
+    },
+    {
+      "title": "Quality Improvement",
+      "text": "Clinical audit, healthcare quality, guidelines and practical improvement of care."
+    }
+  ],
+  "publications": [
+    {
+      "year": "2026",
+      "title": "Medical Research Made Simple",
+      "authors": "Mohamed, E. E. A.",
+      "journal": "Medical research textbook",
+      "doi": "https://doi.org/10.5281/zenodo.18862291"
+    },
+    {
+      "year": "2026",
+      "title": "Availability and readiness of healthcare services at primary healthcare centers during the Sudan war: a cross-sectional study",
+      "authors": "Rabih, M., Ahmed, A. B. M., Abdelgyoum, H. A., Elhassan, S., Mohamed, E. E. A., et al.",
+      "journal": "BMC Primary Care, 26(1), 317.",
+      "doi": ""
+    },
+    {
+      "year": "2024",
+      "title": "Determinants of Delay in Seeking Medical Care among Patients with Chronic Illnesses in Two Hospitals in Port Sudan: A Cross-Sectional Study",
+      "authors": "Mohamed, E. E. A., et al.",
+      "journal": "Zenodo",
+      "doi": "https://doi.org/10.5281/zenodo.18822576"
+    },
+    {
+      "year": "—",
+      "title": "Psychological Disorders (Anxiety, Nervousness, and Social isolation) Among Diabetic Patients in Port Sudan",
+      "authors": "Elalim Eltayeb Abdurrahman, Abduraheim, R. A., Alabdin, N. Z., et al.",
+      "journal": "Napata Scientific Journal",
+      "doi": ""
+    },
+    {
+      "year": "—",
+      "title": "Direct Comparison of Pneumatic and Laser Lithotripsy in the Management of Lower Ureteric Stone",
+      "authors": "Mohammed, A. G. A., Mohammed, A.",
+      "journal": "Al Neelain Medical Journal, pp. 81–100.",
+      "doi": ""
+    }
+  ],
+  "education": {
+    "intro": "I design and deliver practical learning experiences across medical research, scientific writing, data analysis and emerging technology.",
+    "tags": [
+      "Research Methodology",
+      "Scientific Writing",
+      "Data Analysis",
+      "AI in Medical Research",
+      "Clinical Audit",
+      "Systematic Review & Meta-analysis",
+      "Curriculum Design",
+      "Academic Mentoring"
+    ]
+  },
+  "experience": [
+    {
+      "period": "2025–Present",
+      "title": "Lead Trainer in Artificial Intelligence Applications in Medicine",
+      "org": "Education Development Center (EDC)"
+    },
+    {
+      "period": "2024–Present",
+      "title": "Founder & Head of Board",
+      "org": "Abou-aloloum Center for Medical Education and Research (ACMER)"
+    },
+    {
+      "period": "2023–Present",
+      "title": "Member, Health Quality Improvement Committee",
+      "org": "Port Sudan Teaching Hospital"
+    },
+    {
+      "period": "2023–2024",
+      "title": "Director of Research Office",
+      "org": "Haj Malik Research Group (HMRG)"
+    },
+    {
+      "period": "2024–2026",
+      "title": "Assistant — Department of Physiology",
+      "org": "Faculty of Medicine, Red Sea University"
+    },
+    {
+      "period": "2022–2025",
+      "title": "Research Assistant — Medical Education Center",
+      "org": "Red Sea University"
+    }
+  ],
+  "projects": [
+    {
+      "kicker": "MEDICAL EDUCATION & RESEARCH",
+      "title": "ACMER",
+      "text": "Abou-aloloum Center for Medical Education and Research — a platform for practical medical education, research training, curriculum development and academic collaboration."
+    },
+    {
+      "kicker": "RESEARCH COLLABORATION",
+      "title": "Haj Malik Research Group",
+      "text": "A research initiative focused on mentorship, collaborative projects, evidence synthesis, publication and open-access research training."
+    }
+  ],
+  "recognition": [
+    {
+      "title": "Academic Honors",
+      "text": "Prize of Surgery, Faculty of Medicine, Red Sea University (2026) · Prize of Anatomy (2022)."
+    },
+    {
+      "title": "Scientific Presentations",
+      "text": "Presented research and academic work at scientific conferences and meetings in Sudan and internationally, including surgical, public health, medical education and mental health topics."
+    },
+    {
+      "title": "Peer Review",
+      "text": "Peer Reviewer, International Journal of Medical Students (IJMS), 2024–2025."
+    },
+    {
+      "title": "Professional Memberships",
+      "text": "Member, European Academy of Neurology (EAN) · Member, American Academy of Neurology (AAN)."
+    }
+  ],
+  "posts": []
+}

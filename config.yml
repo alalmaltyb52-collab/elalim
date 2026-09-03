@@ -1,0 +1,102 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: "https://elalimmohamed.com"
+display_url: "https://elalimmohamed.com"
+
+collections:
+  - name: "site"
+    label: "Website Content"
+    files:
+      - label: "Main Website"
+        name: "site"
+        file: "content/site.json"
+        format: "json"
+        fields:
+          - label: "Profile"
+            name: "profile"
+            widget: "object"
+            fields:
+              - {label: "Full Name", name: "full_name", widget: "string"}
+              - {label: "Display Name", name: "name", widget: "string"}
+              - {label: "Professional Title", name: "title", widget: "string"}
+              - {label: "Tagline", name: "tagline", widget: "text"}
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "Profile Image", name: "image", widget: "image", required: false}
+              - {label: "ORCID", name: "orcid", widget: "string", required: false}
+              - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
+              - {label: "Google Scholar", name: "scholar", widget: "string", required: false}
+              - {label: "ResearchGate", name: "researchgate", widget: "string", required: false}
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - {label: "Number", name: "number", widget: "string"}
+              - {label: "Label", name: "label", widget: "string"}
+          - label: "About"
+            name: "about"
+            widget: "object"
+            fields:
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Intro", name: "intro", widget: "text"}
+              - {label: "Paragraph 1", name: "body1", widget: "text"}
+              - {label: "Paragraph 2", name: "body2", widget: "text"}
+          - label: "Research Areas"
+            name: "research"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "text", widget: "text"}
+          - label: "Publications"
+            name: "publications"
+            widget: "list"
+            fields:
+              - {label: "Year", name: "year", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Authors", name: "authors", widget: "text"}
+              - {label: "Journal / Source", name: "journal", widget: "string"}
+              - {label: "DOI / Link", name: "doi", widget: "string", required: false}
+          - label: "Education"
+            name: "education"
+            widget: "object"
+            fields:
+              - {label: "Intro", name: "intro", widget: "text"}
+              - label: "Training Topics"
+                name: "tags"
+                widget: "list"
+                field: {label: "Topic", name: "topic", widget: "string"}
+          - label: "Experience"
+            name: "experience"
+            widget: "list"
+            fields:
+              - {label: "Period", name: "period", widget: "string"}
+              - {label: "Role", name: "title", widget: "string"}
+              - {label: "Organization", name: "org", widget: "string"}
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            fields:
+              - {label: "Category", name: "kicker", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "text", widget: "text"}
+          - label: "Recognition"
+            name: "recognition"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "text", widget: "text"}
+          - label: "Posts / News"
+            name: "posts"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "Date", name: "date", widget: "datetime"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category", name: "category", widget: "string", required: false}
+              - {label: "Excerpt", name: "excerpt", widget: "text"}
+              - {label: "Body", name: "body", widget: "markdown"}
+              - {label: "Image", name: "image", widget: "image", required: false}
