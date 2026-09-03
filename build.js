@@ -32,3 +32,4 @@ const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 </main><footer><div class="container footer"><span>© 2026 ${esc(p.name)}</span><span>Medicine · Research · Education</span><a href="/admin/">Admin</a></div></footer><script src="script.js"></script></body></html>`;
 fs.writeFileSync(path.join(out,"index.html"),html);
 fs.copyFileSync("style.css",path.join(out,"style.css")); fs.copyFileSync("script.js",path.join(out,"script.js")); fs.cpSync("assets",path.join(out,"assets"),{recursive:true});
+fs.cpSync("admin",path.join(out,"admin"),{recursive:true});
