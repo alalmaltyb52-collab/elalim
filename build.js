@@ -37,12 +37,20 @@ const a = data.about;
 
 const image = p.image || "assets/profile.jpg";
 
+/* =========================
+   STATS
+========================= */
+
 const stats = data.stats
   .map(
     x =>
       `<div><strong>${esc(x.number)}</strong><span>${esc(x.label)}</span></div>`
   )
   .join("");
+
+/* =========================
+   RESEARCH
+========================= */
 
 const research = data.research
   .map(
@@ -53,18 +61,37 @@ const research = data.research
   )
   .join("");
 
+/* =========================
+   PUBLICATIONS
+========================= */
+
 const pubs = data.publications
   .map(
     x =>
       `<article><div class="year">${esc(x.year)}</div><div><h3>${esc(
         x.title
-      )}</h3><p>${esc(x.authors)}. ${esc(x.journal)}</p>${link(x.doi)}</div></article>`
+      )}</h3><p>${esc(x.authors)}. ${esc(x.journal)}</p>${link(
+        x.doi
+      )}</div></article>`
   )
   .join("");
 
+/* =========================
+   EDUCATION TAGS
+========================= */
+
 const tags = (data.education.tags || [])
-  .map(x => `<span>${esc(typeof x === "string" ? x : x.topic)}</span>`)
+  .map(
+    x =>
+      `<span>${esc(
+        typeof x === "string" ? x : x.topic
+      )}</span>`
+  )
   .join("");
+
+/* =========================
+   EXPERIENCE
+========================= */
 
 const exp = data.experience
   .map(
@@ -75,19 +102,31 @@ const exp = data.experience
   )
   .join("");
 
+/* =========================
+   PROJECTS
+========================= */
+
 const projects = data.projects
   .map(
     x =>
       `<article class="project"><p class="project-kicker">${esc(
         x.kicker
-      )}</p><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></article>`
+      )}</p><h3>${esc(x.title)}</h3><p>${esc(
+        x.text
+      )}</p></article>`
   )
   .join("");
+
+/* =========================
+   RECOGNITION
+========================= */
 
 const rec = data.recognition
   .map(
     x =>
-      `<div><strong>${esc(x.title)}</strong><p>${esc(x.text)}</p></div>`
+      `<div><strong>${esc(x.title)}</strong><p>${esc(
+        x.text
+      )}</p></div>`
   )
   .join("");
 
@@ -95,32 +134,47 @@ const rec = data.recognition
    POSTS / UPDATES
 ========================= */
 
-const posts = (data.posts || []).map((x, index) => {
-  const slug = x.slug || slugify(x.title);
-  const date = (x.date || "").slice(0, 10);
+const posts = (data.posts || [])
+  .map(x => {
+    const slug = x.slug || slugify(x.title);
+    const date = (x.date || "").slice(0, 10);
 
-  return `
-    <article class="post">
-      <p class="post-date">
-        ${esc(date)} · ${esc(x.category || "UPDATE")}
-      </p>
+    return `
+      <article class="post">
 
-      <h3>${esc(x.title)}</h3>
+        <p class="post-date">
+          ${esc(date)} · ${esc(
+            x.category || "RESEARCH INSIGHT"
+          )}
+        </p>
 
-      ${
-        x.subtitle
-          ? `<p class="post-subtitle">${esc(x.subtitle)}</p>`
-          : ""
-      }
+        <h3>
+          ${esc(x.title)}
+        </h3>
 
-      <p>${esc(x.excerpt || "")}</p>
+        ${
+          x.subtitle
+            ? `<p class="post-subtitle">${esc(
+                x.subtitle
+              )}</p>`
+            : ""
+        }
 
-      <a class="text-link post-link" href="/updates/${esc(
-        slug
-      )}/">Read Article →</a>
-    </article>
-  `;
-}).join("");
+        <p>
+          ${esc(x.excerpt || "")}
+        </p>
+
+        <a
+          class="text-link post-link"
+          href="/updates/${esc(slug)}/"
+        >
+          Read More →
+        </a>
+
+      </article>
+    `;
+  })
+  .join("");
 
 /* =========================
    SOCIAL
@@ -141,8 +195,13 @@ const html = `<!doctype html>
 <html lang="en">
 
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 
 <meta
   name="description"
@@ -153,34 +212,57 @@ const html = `<!doctype html>
 )}. Academic profile, research, publications, education and professional work."
 >
 
-<meta name="author" content="${esc(p.full_name)}">
+<meta
+  name="author"
+  content="${esc(p.full_name)}"
+>
 
-<title>${esc(p.name)} | ${esc(p.title)}</title>
+<title>
+${esc(p.name)} | ${esc(p.title)}
+</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
 
 <link
   href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
   rel="stylesheet"
 >
 
-<link rel="stylesheet" href="style.css">
+<link
+  rel="stylesheet"
+  href="style.css"
+>
 
 </head>
 
 <body>
 
 <header class="nav-wrap">
+
 <nav class="nav container">
 
 <a class="brand" href="#home">
 ELALIM<span>MOHAMED</span>
 </a>
 
-<button class="menu" aria-label="Open menu">☰</button>
+<button
+  class="menu"
+  aria-label="Open menu"
+>
+☰
+</button>
 
 <div class="links">
+
 <a href="#about">About</a>
 <a href="#research">Research</a>
 <a href="#publications">Publications</a>
@@ -190,12 +272,16 @@ ELALIM<span>MOHAMED</span>
 <a href="#updates">Updates</a>
 <a href="#cv">CV</a>
 <a href="#contact">Contact</a>
+
 </div>
 
 </nav>
+
 </header>
 
 <main id="home">
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -213,7 +299,10 @@ Elalim<br>
 </h1>
 
 <p class="role">
-${esc(p.title).replaceAll(" · ", " <b>·</b> ")}
+${esc(p.title).replaceAll(
+  " · ",
+  " <b>·</b> "
+)}
 </p>
 
 <p class="lead">
@@ -222,11 +311,18 @@ ${esc(p.tagline)}
 
 <div class="actions">
 
-<a class="btn primary" href="#research">
+<a
+  class="btn primary"
+  href="#research"
+>
 Explore my research
 </a>
 
-<a class="btn ghost" href="assets/CV.pdf" download>
+<a
+  class="btn ghost"
+  href="assets/CV.pdf"
+  download
+>
 Download CV
 </a>
 
@@ -251,7 +347,12 @@ Education & training
 <div class="hero-card">
 
 <div class="portrait">
-<img src="${esc(image)}" alt="${esc(p.name)}">
+
+<img
+  src="${esc(image)}"
+  alt="${esc(p.name)}"
+>
+
 </div>
 
 <p class="card-label">
@@ -276,19 +377,37 @@ evidence-based medicine and neurosurgical research.
 
 </section>
 
+<!-- STATS -->
+
 <section class="stats">
+
 <div class="container stats-grid">
+
 ${stats}
+
 </div>
+
 </section>
 
-<section id="about" class="section">
+<!-- ABOUT -->
+
+<section
+  id="about"
+  class="section"
+>
 
 <div class="container split">
 
 <div>
-<p class="eyebrow">01 — ABOUT</p>
-<h2>${esc(a.headline)}</h2>
+
+<p class="eyebrow">
+01 — ABOUT
+</p>
+
+<h2>
+${esc(a.headline)}
+</h2>
+
 </div>
 
 <div>
@@ -311,7 +430,12 @@ ${esc(a.body2)}
 
 </section>
 
-<section id="research" class="section alt">
+<!-- RESEARCH -->
+
+<section
+  id="research"
+  class="section alt"
+>
 
 <div class="container">
 
@@ -333,14 +457,21 @@ evidence generation and medical education.
 </div>
 
 <div class="cards">
+
 ${research}
+
 </div>
 
 </div>
 
 </section>
 
-<section id="publications" class="section">
+<!-- PUBLICATIONS -->
+
+<section
+  id="publications"
+  class="section"
+>
 
 <div class="container">
 
@@ -361,7 +492,9 @@ A growing record of publications, research manuscripts and academic projects.
 </div>
 
 <div class="pub-list">
+
 ${pubs}
+
 </div>
 
 <p class="small-note">
@@ -372,7 +505,12 @@ New publications can be added from the private Admin Dashboard without editing w
 
 </section>
 
-<section id="education" class="section alt">
+<!-- EDUCATION -->
+
+<section
+  id="education"
+  class="section alt"
+>
 
 <div class="container split">
 
@@ -395,7 +533,9 @@ ${esc(data.education.intro)}
 </p>
 
 <div class="pill-list">
+
 ${tags}
+
 </div>
 
 <div class="education-card">
@@ -416,7 +556,12 @@ Founder & Head of Board, Abou-aloloum Center for Medical Education and Research 
 
 </section>
 
-<section id="experience" class="section">
+<!-- EXPERIENCE -->
+
+<section
+  id="experience"
+  class="section"
+>
 
 <div class="container">
 
@@ -425,14 +570,21 @@ Founder & Head of Board, Abou-aloloum Center for Medical Education and Research 
 </p>
 
 <div class="timeline">
+
 ${exp}
+
 </div>
 
 </div>
 
 </section>
 
-<section id="projects" class="section alt">
+<!-- PROJECTS -->
+
+<section
+  id="projects"
+  class="section alt"
+>
 
 <div class="container">
 
@@ -441,12 +593,16 @@ ${exp}
 </p>
 
 <div class="projects">
+
 ${projects}
+
 </div>
 
 </div>
 
 </section>
+
+<!-- RECOGNITION -->
 
 <section class="section">
 
@@ -465,14 +621,21 @@ Academic engagement beyond the classroom.
 </div>
 
 <div class="recognition">
+
 ${rec}
+
 </div>
 
 </div>
 
 </section>
 
-<section id="updates" class="section alt">
+<!-- UPDATES -->
+
+<section
+  id="updates"
+  class="section alt"
+>
 
 <div class="container">
 
@@ -495,10 +658,15 @@ Research insights, reflections, conference updates and new academic milestones.
 ${
   posts ||
   `<div class="publication-note">
-    <strong>Coming soon.</strong>
+
+    <strong>
+      Coming soon.
+    </strong>
+
     <p>
       New updates will appear here when published from the Admin Dashboard.
     </p>
+
   </div>`
 }
 
@@ -506,7 +674,12 @@ ${
 
 </section>
 
-<section id="cv" class="section cv-section">
+<!-- CV -->
+
+<section
+  id="cv"
+  class="section cv-section"
+>
 
 <div class="container cv-box">
 
@@ -526,7 +699,11 @@ The current CV is available as a downloadable PDF.
 
 </div>
 
-<a class="btn primary" href="assets/CV.pdf" download>
+<a
+  class="btn primary"
+  href="assets/CV.pdf"
+  download
+>
 Download CV ↓
 </a>
 
@@ -534,7 +711,12 @@ Download CV ↓
 
 </section>
 
-<section id="contact" class="section">
+<!-- CONTACT -->
+
+<section
+  id="contact"
+  class="section"
+>
 
 <div class="container contact">
 
@@ -557,15 +739,20 @@ teaching, scientific projects or professional inquiries.
 
 <div class="contact-card">
 
-<a href="mailto:${esc(p.email)}">
+<a
+  href="mailto:${esc(p.email)}"
+>
 ${esc(p.email)}
 </a>
 
 <div class="socials">
 
 ${social(p.orcid, "ORCID")}
+
 ${social(p.linkedin, "LinkedIn")}
+
 ${social(p.scholar, "Google Scholar")}
+
 ${social(p.researchgate, "ResearchGate")}
 
 </div>
@@ -601,68 +788,140 @@ Admin
 <script src="script.js"></script>
 
 </body>
+
 </html>`;
 
-/* Write main page */
+/* =========================
+   WRITE MAIN PAGE
+========================= */
+
 fs.writeFileSync(
   path.join(out, "index.html"),
   html
 );
 
 /* =========================
-   CREATE ARTICLE PAGES
+   ARTICLE CONTENT FORMATTER
 ========================= */
 
 function formatContent(content = "") {
+
   return String(content)
     .split(/\n\s*\n/)
     .map(paragraph => {
+
       const text = paragraph.trim();
 
       if (!text) return "";
 
       if (text.startsWith("## ")) {
-        return `<h2>${esc(text.slice(3))}</h2>`;
+        return `<h2>${esc(
+          text.slice(3)
+        )}</h2>`;
       }
 
       if (text.startsWith("### ")) {
-        return `<h3>${esc(text.slice(4))}</h3>`;
+        return `<h3>${esc(
+          text.slice(4)
+        )}</h3>`;
       }
 
       if (text.startsWith("- ")) {
+
         const items = text
           .split("\n")
-          .filter(x => x.trim().startsWith("- "))
-          .map(x => `<li>${esc(x.trim().slice(2))}</li>`)
+          .filter(
+            x =>
+              x.trim().startsWith("- ")
+          )
+          .map(
+            x =>
+              `<li>${esc(
+                x.trim().slice(2)
+              )}</li>`
+          )
           .join("");
 
         return `<ul>${items}</ul>`;
       }
 
-      return `<p>${esc(text).replace(/\n/g, "<br>")}</p>`;
+      return `<p>${esc(text).replace(
+        /\n/g,
+        "<br>"
+      )}</p>`;
+
     })
     .join("\n");
 }
 
+/* =========================
+   CREATE ARTICLE PAGES
+========================= */
+
 (data.posts || []).forEach(post => {
 
-  const slug = post.slug || slugify(post.title);
+  const slug =
+    post.slug ||
+    slugify(post.title);
 
-  const postDir = path.join(
-    out,
-    "updates",
-    slug
+  const postDir =
+    path.join(
+      out,
+      "updates",
+      slug
+    );
+
+  fs.mkdirSync(
+    postDir,
+    { recursive: true }
   );
 
-  fs.mkdirSync(postDir, { recursive: true });
+  const postDate =
+    (post.date || "").slice(0, 10);
 
-  const postDate = (post.date || "").slice(0, 10);
+  const articleContent =
+    formatContent(
+      post.content || ""
+    );
 
-  const articleContent = formatContent(
-    post.content || ""
-  );
+  /* =========================
+     ARTICLE SOCIAL LINKS
+  ========================= */
+
+  const articleSocials = [
+
+    p.orcid
+      ? `<a href="${esc(
+          p.orcid
+        )}" target="_blank" rel="noopener">ORCID</a>`
+      : "",
+
+    p.linkedin
+      ? `<a href="${esc(
+          p.linkedin
+        )}" target="_blank" rel="noopener">LinkedIn</a>`
+      : "",
+
+    p.scholar
+      ? `<a href="${esc(
+          p.scholar
+        )}" target="_blank" rel="noopener">Google Scholar</a>`
+      : "",
+
+    p.researchgate
+      ? `<a href="${esc(
+          p.researchgate
+        )}" target="_blank" rel="noopener">ResearchGate</a>`
+      : ""
+
+  ].filter(Boolean).join("");
+
+  /* =========================
+     ARTICLE HTML
+  ========================= */
 
   const articleHtml = `<!doctype html>
+
 <html lang="en">
 
 <head>
@@ -676,22 +935,33 @@ function formatContent(content = "") {
 
 <meta
   name="description"
-  content="${esc(post.excerpt || post.title)}"
+  content="${esc(
+    post.excerpt ||
+    post.title
+  )}"
 >
 
 <meta
   name="author"
-  content="${esc(p.full_name)}"
+  content="${esc(
+    post.author ||
+    p.full_name
+  )}"
 >
 
 <meta
   property="og:title"
-  content="${esc(post.title)}"
+  content="${esc(
+    post.title
+  )}"
 >
 
 <meta
   property="og:description"
-  content="${esc(post.excerpt || post.title)}"
+  content="${esc(
+    post.excerpt ||
+    post.title
+  )}"
 >
 
 <meta
@@ -699,24 +969,35 @@ function formatContent(content = "") {
   content="article"
 >
 
+${
+  post.image
+    ? `<meta property="og:image" content="https://elalimmohamed.com/${esc(post.image)}">`
+    : ""
+}
+
 <title>
 ${esc(post.title)} | ${esc(p.name)}
 </title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
 <link
-href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
-rel="stylesheet"
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
 >
 
 <link
-rel="stylesheet"
-href="/style.css"
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="/style.css"
 >
 
 </head>
@@ -727,9 +1008,19 @@ href="/style.css"
 
 <nav class="nav container">
 
-<a class="brand" href="/">
+<a
+  class="brand"
+  href="/"
+>
 ELALIM<span>MOHAMED</span>
 </a>
+
+<button
+  class="menu"
+  aria-label="Open menu"
+>
+☰
+</button>
 
 <div class="links">
 
@@ -755,27 +1046,61 @@ ELALIM<span>MOHAMED</span>
 
 <div class="container article-container">
 
-<a class="back-link" href="/#updates">
+<a
+  class="article-back"
+  href="/#updates"
+>
 ← Back to Updates
 </a>
 
-<p class="eyebrow">
-${esc(post.category || "RESEARCH INSIGHT")}
+<p class="article-category">
+${esc(
+  post.category ||
+  "RESEARCH INSIGHT"
+)}
 </p>
 
-<h1>
+<h1 class="article-title">
 ${esc(post.title)}
 </h1>
 
 ${
   post.subtitle
-    ? `<p class="article-subtitle">${esc(post.subtitle)}</p>`
+    ? `
+    <p class="article-subtitle">
+      ${esc(post.subtitle)}
+    </p>
+    `
     : ""
 }
 
-<p class="article-date">
+<p class="article-meta">
+
 ${esc(postDate)}
+
+·
+
+${esc(
+  post.category ||
+  "RESEARCH INSIGHT"
+)}
+
 </p>
+
+${
+  post.image
+    ? `
+    <div class="article-hero-image">
+
+      <img
+        src="/${esc(post.image)}"
+        alt="${esc(post.title)}"
+      >
+
+    </div>
+    `
+    : ""
+}
 
 <div class="article-content">
 
@@ -784,36 +1109,132 @@ ${articleContent}
 </div>
 
 ${
-  post.doi
+  post.doi || post.study
     ? `
-    <div class="article-source">
-      <strong>Read the full study</strong>
-      <p>
-        For the complete methodology, statistical analysis and detailed findings,
-        please refer to the full research article.
-      </p>
-      <a class="btn primary"
-         href="${esc(post.doi)}"
-         target="_blank"
-         rel="noopener">
-         Read the Full Study →
-      </a>
+    <div class="article-study">
+
+      <strong>
+        About the Study
+      </strong>
+
+      ${
+        post.study
+          ? `
+          <p>
+            ${esc(post.study)}
+          </p>
+          `
+          : ""
+      }
+
+      ${
+        post.doi
+          ? `
+          <a
+            class="study-link"
+            href="${esc(post.doi)}"
+            target="_blank"
+            rel="noopener"
+          >
+            Read the Full Study →
+          </a>
+          `
+          : ""
+      }
+
+      <div class="article-author">
+
+        <strong>
+          Author
+        </strong>
+
+        <p>
+          ${esc(
+            post.author ||
+            p.full_name ||
+            p.name
+          )}
+        </p>
+
+        ${
+          articleSocials
+            ? `
+            <div class="article-socials">
+              ${articleSocials}
+            </div>
+            `
+            : ""
+        }
+
+      </div>
+
     </div>
     `
-    : ""
+    : `
+    <div class="article-study">
+
+      <strong>
+        About the Study
+      </strong>
+
+      <p>
+        ${esc(
+          post.study ||
+          "This article is based on the research study presented below."
+        )}
+      </p>
+
+      <div class="article-author">
+
+        <strong>
+          Author
+        </strong>
+
+        <p>
+          ${esc(
+            post.author ||
+            p.full_name ||
+            p.name
+          )}
+        </p>
+
+        ${
+          articleSocials
+            ? `
+            <div class="article-socials">
+              ${articleSocials}
+            </div>
+            `
+            : ""
+        }
+
+      </div>
+
+    </div>
+    `
 }
 
 <div class="article-footer">
 
 <p>
-<strong>About the author</strong>
+<strong>
+About the author
+</strong>
 </p>
 
 <p>
-${esc(p.full_name)} — ${esc(p.title)}
+${esc(
+  post.author ||
+  p.full_name
+)}
+—
+${esc(p.title)}
 </p>
 
-<a class="text-link" href="/">
+<a
+  class="text-link"
+  href="/"
+>
 Visit my academic profile →
 </a>
 
@@ -852,9 +1273,13 @@ Admin
 </html>`;
 
   fs.writeFileSync(
-    path.join(postDir, "index.html"),
+    path.join(
+      postDir,
+      "index.html"
+    ),
     articleHtml
   );
+
 });
 
 /* =========================
@@ -863,26 +1288,48 @@ Admin
 
 fs.copyFileSync(
   "style.css",
-  path.join(out, "style.css")
+  path.join(
+    out,
+    "style.css"
+  )
 );
 
 fs.copyFileSync(
   "script.js",
-  path.join(out, "script.js")
+  path.join(
+    out,
+    "script.js"
+  )
 );
 
 fs.cpSync(
   "assets",
-  path.join(out, "assets"),
-  { recursive: true }
+  path.join(
+    out,
+    "assets"
+  ),
+  {
+    recursive: true
+  }
 );
 
 fs.cpSync(
   "admin",
-  path.join(out, "admin"),
-  { recursive: true }
+  path.join(
+    out,
+    "admin"
+  ),
+  {
+    recursive: true
+  }
 );
 
+/* =========================
+   BUILD COMPLETE
+========================= */
+
 console.log(
-  `Build complete: ${data.posts?.length || 0} update(s) generated.`
+  `Build complete: ${
+    data.posts?.length || 0
+  } update(s) generated.`
 );
