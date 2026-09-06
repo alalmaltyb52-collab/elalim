@@ -11,6 +11,7 @@
     "researchgate": "",
     "image": "assets/profile.jpg"
   },
+
   "stats": [
     {
       "number": "2026",
@@ -29,12 +30,14 @@
       "label": "Research & education initiatives"
     }
   ],
+
   "about": {
     "headline": "A clinician with a researcher's mindset.",
     "intro": "I am a medical doctor, researcher and medical educator interested in turning scientific evidence into better learning, better decisions and better health outcomes.",
     "body1": "I graduated with an MBBS from the Faculty of Medicine, Red Sea University, Sudan, with First Class Honors in May 2026. My academic work spans medical education, healthcare research, quality improvement, scientific writing and evidence synthesis.",
     "body2": "My longer-term direction brings together clinical medicine, neuroscience/neurosurgery, research and education — with a strong interest in collaborative, internationally relevant academic work."
   },
+
   "research": [
     {
       "title": "Neurosurgery & TBI",
@@ -61,6 +64,7 @@
       "text": "Clinical audit, healthcare quality, guidelines and practical improvement of care."
     }
   ],
+
   "publications": [
     {
       "year": "2026",
@@ -98,6 +102,7 @@
       "doi": ""
     }
   ],
+
   "education": {
     "intro": "I design and deliver practical learning experiences across medical research, scientific writing, data analysis and emerging technology.",
     "tags": [
@@ -111,6 +116,7 @@
       "Academic Mentoring"
     ]
   },
+
   "experience": [
     {
       "period": "2025–Present",
@@ -143,6 +149,7 @@
       "org": "Red Sea University"
     }
   ],
+
   "projects": [
     {
       "kicker": "MEDICAL EDUCATION & RESEARCH",
@@ -155,6 +162,7 @@
       "text": "A research initiative focused on mentorship, collaborative projects, evidence synthesis, publication and open-access research training."
     }
   ],
+
   "recognition": [
     {
       "title": "Academic Honors",
@@ -173,5 +181,17 @@
       "text": "Member, European Academy of Neurology (EAN) · Member, American Academy of Neurology (AAN)."
     }
   ],
-  "posts": []
+
+  "posts": [
+    {
+      "date": "2026-09-06",
+      "category": "RESEARCH INSIGHT",
+      "title": "Why Are Health Professions Students Struggling to Conduct Research?",
+      "subtitle": "Lessons from Sudan",
+      "slug": "research-training-needs-sudan",
+      "excerpt": "A national study from Sudan explores the barriers that prevent health professions students from engaging in research and identifies the training areas they need most.",
+      "doi": "",
+      "content": "Medical and health professions students are often introduced to research as an essential part of their education. They learn how to formulate questions, search the literature, collect data, and contribute to the scientific evidence that shapes healthcare.\n\nYet for many students, the journey from wanting to do research to completing and publishing a study is far from straightforward.\n\nSo, what stands in the way?\n\nA recent national cross-sectional study among health professions students in Sudan provides important insights into this question.\n\n## What did we investigate?\n\nWe conducted a national online survey involving 874 health professions students in Sudan, exploring their experiences with research, the barriers they encounter, and the areas in which they most need additional training.\n\nThe study used a 41-item questionnaire that was evaluated for reliability, with a Cronbach's alpha of 0.82, indicating good internal consistency.\n\nRather than asking only whether students were interested in research, we wanted to understand a more practical question: What prevents motivated students from actually doing research?\n\n## The barriers were not simply about motivation\n\nStudents identified several major barriers, particularly academic and study pressures, difficulty understanding research concepts, limited time available for research activities, and restricted access to research resources.\n\nNotably, 60.8% of participants reported restricted access to research resources.\n\nA student may be highly motivated to conduct research but still struggle because they do not have sufficient access to scientific literature, appropriate mentorship, statistical support, research training, or protected time.\n\nIn other words, research capacity is influenced not only by individual motivation, but also by the environment in which students learn.\n\n## What do students actually want to learn?\n\nThe most prominent training needs included scientific and manuscript writing, statistical analysis, and research project management.\n\nKnowing how to conduct a study is only part of the research process. Researchers must also be able to communicate their findings clearly and prepare manuscripts that meet scientific and journal standards.\n\nMany students also encounter difficulties when moving from collected data to meaningful results. Practical training in statistics and data analysis can help bridge this gap.\n\nResearch project management is another essential skill. Research involves planning, teamwork, timelines, ethical considerations, data management, and coordination.\n\nThese findings suggest that students may benefit more from practical, structured research training than from purely theoretical lectures.\n\n## Why does this matter for Sudan?\n\nSudan faces major challenges in healthcare, education, and research capacity. At the same time, the country has a large population of medical and health professions students who represent an important potential research workforce.\n\nInvesting in their research skills could therefore have effects far beyond individual academic achievement.\n\nBetter-trained students can become more capable research assistants, future investigators, evidence-based clinicians, academic educators, and leaders in healthcare improvement.\n\nBuilding research capacity among students is ultimately an investment in the future of the health system.\n\n## From research training to research culture\n\nImproving student research participation should not depend on teaching a single research-methodology course.\n\nA stronger approach would combine research education, mentorship, access to resources, practical projects, statistical support, and opportunities for publication.\n\nStudents should not only learn what research is. They should have opportunities to experience the complete research pathway: Question, Protocol, Ethics, Data, Analysis, Manuscript, Publication.\n\nWhen this pathway becomes accessible, research can move from being an academic requirement to becoming part of the culture of healthcare education.\n\n## What can be done?\n\nMedical schools and health professions institutions can introduce longitudinal research training, establish structured mentorship programs, provide access to research resources, teach through real projects, and create pathways to dissemination and publication.\n\nStudents should be supported not only to complete research but also to present and publish their findings.\n\n## The bigger lesson\n\nThe challenge is not simply that students need to do more research.\n\nThey need the skills, mentorship, resources, and environment required to do good research.\n\nThe Sudanese experience highlights a broader issue that may resonate with health professions students in many low- and middle-income settings: research potential can be substantial, but potential alone is not enough.\n\nResearch capacity must be built.\n\nAnd perhaps the most important place to begin is where the next generation of healthcare professionals is being trained.\n\n## About the Study\n\nBarriers and Research Training Needs among Health Professions Students in Sudan: A National Cross-Sectional Study.\n\nThis national study examined research barriers and training needs among 874 health professions students in Sudan, providing evidence that can help inform future research education and capacity-building initiatives."
+    }
+  ]
 }
