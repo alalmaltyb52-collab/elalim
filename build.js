@@ -1,35 +1,888 @@
-const fs=require("fs"),path=require("path");
-const data=JSON.parse(fs.readFileSync("content/site.json","utf8"));
-const out="dist"; fs.rmSync(out,{recursive:true,force:true}); fs.mkdirSync(path.join(out,"assets"),{recursive:true});
-function esc(v=""){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function link(url,label="DOI →"){return url?`<a class="text-link" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`:""}
-const p=data.profile, a=data.about;
-const image=p.image||"assets/profile.jpg";
-const stats=data.stats.map(x=>`<div><strong>${esc(x.number)}</strong><span>${esc(x.label)}</span></div>`).join("");
-const research=data.research.map((x,i)=>`<article><span>${String(i+1).padStart(2,"0")}</span><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></article>`).join("");
-const pubs=data.publications.map(x=>`<article><div class="year">${esc(x.year)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.authors)}. ${esc(x.journal)}</p>${link(x.doi)}</div></article>`).join("");
-const tags=(data.education.tags||[]).map(x=>`<span>${esc(typeof x==="string"?x:x.topic)}</span>`).join("");
-const exp=data.experience.map(x=>`<div><span>${esc(x.period)}</span><h3>${esc(x.title)}</h3><p>${esc(x.org)}</p></div>`).join("");
-const projects=data.projects.map(x=>`<article class="project"><p class="project-kicker">${esc(x.kicker)}</p><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></article>`).join("");
-const rec=data.recognition.map(x=>`<div><strong>${esc(x.title)}</strong><p>${esc(x.text)}</p></div>`).join("");
-const posts=(data.posts||[]).map(x=>`<article class="post"><p class="post-date">${esc((x.date||"").slice(0,10))} · ${esc(x.category||"UPDATE")}</p><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></article>`).join("");
-const social=(url,label)=>url?`<a href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`:"";
-const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(p.name)} — ${esc(p.title)}. Academic profile, research, publications, education and professional work."><meta name="author" content="${esc(p.full_name)}"><title>${esc(p.name)} | ${esc(p.title)}</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
-<header class="nav-wrap"><nav class="nav container"><a class="brand" href="#home">ELALIM<span>MOHAMED</span></a><button class="menu" aria-label="Open menu">☰</button><div class="links"><a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#updates">Updates</a><a href="#cv">CV</a><a href="#contact">Contact</a></div></nav></header>
+const fs = require("fs");
+const path = require("path");
+
+const data = JSON.parse(
+  fs.readFileSync("content/site.json", "utf8")
+);
+
+const out = "dist";
+
+fs.rmSync(out, { recursive: true, force: true });
+fs.mkdirSync(path.join(out, "assets"), { recursive: true });
+
+function esc(v = "") {
+  return String(v)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function link(url, label = "DOI →") {
+  return url
+    ? `<a class="text-link" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`
+    : "";
+}
+
+function slugify(text = "") {
+  return String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const p = data.profile;
+const a = data.about;
+
+const image = p.image || "assets/profile.jpg";
+
+const stats = data.stats
+  .map(
+    x =>
+      `<div><strong>${esc(x.number)}</strong><span>${esc(x.label)}</span></div>`
+  )
+  .join("");
+
+const research = data.research
+  .map(
+    (x, i) =>
+      `<article><span>${String(i + 1).padStart(2, "0")}</span><h3>${esc(
+        x.title
+      )}</h3><p>${esc(x.text)}</p></article>`
+  )
+  .join("");
+
+const pubs = data.publications
+  .map(
+    x =>
+      `<article><div class="year">${esc(x.year)}</div><div><h3>${esc(
+        x.title
+      )}</h3><p>${esc(x.authors)}. ${esc(x.journal)}</p>${link(x.doi)}</div></article>`
+  )
+  .join("");
+
+const tags = (data.education.tags || [])
+  .map(x => `<span>${esc(typeof x === "string" ? x : x.topic)}</span>`)
+  .join("");
+
+const exp = data.experience
+  .map(
+    x =>
+      `<div><span>${esc(x.period)}</span><h3>${esc(
+        x.title
+      )}</h3><p>${esc(x.org)}</p></div>`
+  )
+  .join("");
+
+const projects = data.projects
+  .map(
+    x =>
+      `<article class="project"><p class="project-kicker">${esc(
+        x.kicker
+      )}</p><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></article>`
+  )
+  .join("");
+
+const rec = data.recognition
+  .map(
+    x =>
+      `<div><strong>${esc(x.title)}</strong><p>${esc(x.text)}</p></div>`
+  )
+  .join("");
+
+/* =========================
+   POSTS / UPDATES
+========================= */
+
+const posts = (data.posts || []).map((x, index) => {
+  const slug = x.slug || slugify(x.title);
+  const date = (x.date || "").slice(0, 10);
+
+  return `
+    <article class="post">
+      <p class="post-date">
+        ${esc(date)} · ${esc(x.category || "UPDATE")}
+      </p>
+
+      <h3>${esc(x.title)}</h3>
+
+      ${
+        x.subtitle
+          ? `<p class="post-subtitle">${esc(x.subtitle)}</p>`
+          : ""
+      }
+
+      <p>${esc(x.excerpt || "")}</p>
+
+      <a class="text-link post-link" href="/updates/${esc(
+        slug
+      )}/">Read Article →</a>
+    </article>
+  `;
+}).join("");
+
+/* =========================
+   SOCIAL
+========================= */
+
+const social = (url, label) =>
+  url
+    ? `<a href="${esc(
+        url
+      )}" target="_blank" rel="noopener">${label}</a>`
+    : "";
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+const html = `<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="description"
+  content="${esc(
+    p.name
+  )} — ${esc(
+  p.title
+)}. Academic profile, research, publications, education and professional work."
+>
+
+<meta name="author" content="${esc(p.full_name)}">
+
+<title>${esc(p.name)} | ${esc(p.title)}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="nav-wrap">
+<nav class="nav container">
+
+<a class="brand" href="#home">
+ELALIM<span>MOHAMED</span>
+</a>
+
+<button class="menu" aria-label="Open menu">☰</button>
+
+<div class="links">
+<a href="#about">About</a>
+<a href="#research">Research</a>
+<a href="#publications">Publications</a>
+<a href="#education">Education</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#updates">Updates</a>
+<a href="#cv">CV</a>
+<a href="#contact">Contact</a>
+</div>
+
+</nav>
+</header>
+
 <main id="home">
-<section class="hero"><div class="container hero-grid"><div><p class="eyebrow">MEDICINE · RESEARCH · EDUCATION</p><h1>Elalim<br><span>Mohamed</span></h1><p class="role">${esc(p.title).replaceAll(" · "," <b>·</b> ")}</p><p class="lead">${esc(p.tagline)}</p><div class="actions"><a class="btn primary" href="#research">Explore my research</a><a class="btn ghost" href="assets/CV.pdf" download>Download CV</a></div><div class="mini-links"><a href="#contact">Research collaborations</a><span>•</span><a href="#education">Education & training</a></div></div><div class="hero-card"><div class="portrait"><img src="${esc(image)}" alt="${esc(p.name)}"></div><p class="card-label">ACADEMIC PROFILE</p><h3>Clinical medicine, research & medical education</h3><div class="line"></div><p>Medical graduate with First Class Honors, research and teaching experience, leadership in research education, and a growing academic focus on evidence-based medicine and neurosurgical research.</p></div></div></section>
-<section class="stats"><div class="container stats-grid">${stats}</div></section>
-<section id="about" class="section"><div class="container split"><div><p class="eyebrow">01 — ABOUT</p><h2>${esc(a.headline)}</h2></div><div><p class="large">${esc(a.intro)}</p><p>${esc(a.body1)}</p><p>${esc(a.body2)}</p></div></div></section>
-<section id="research" class="section alt"><div class="container"><p class="eyebrow">02 — RESEARCH</p><div class="section-head"><h2>Questions that matter.</h2><p>Research interests that connect clinical practice, evidence generation and medical education.</p></div><div class="cards">${research}</div></div></section>
-<section id="publications" class="section"><div class="container"><p class="eyebrow">03 — PUBLICATIONS</p><div class="section-head"><h2>Selected scientific work.</h2><p>A growing record of publications, research manuscripts and academic projects.</p></div><div class="pub-list">${pubs}</div><p class="small-note">New publications can be added from the private Admin Dashboard without editing website code.</p></div></section>
-<section id="education" class="section alt"><div class="container split"><div><p class="eyebrow">04 — MEDICAL EDUCATION</p><h2>Teaching research as a practical skill.</h2></div><div><p class="large">${esc(data.education.intro)}</p><div class="pill-list">${tags}</div><div class="education-card"><strong>ACMER</strong><p>Founder & Head of Board, Abou-aloloum Center for Medical Education and Research (2024–Present).</p></div></div></div></section>
-<section id="experience" class="section"><div class="container"><p class="eyebrow">05 — EXPERIENCE</p><div class="timeline">${exp}</div></div></section>
-<section id="projects" class="section alt"><div class="container"><p class="eyebrow">06 — LEADERSHIP & PROJECTS</p><div class="projects">${projects}</div></div></section>
-<section class="section"><div class="container split"><div><p class="eyebrow">07 — RECOGNITION</p><h2>Academic engagement beyond the classroom.</h2></div><div class="recognition">${rec}</div></div></section>
-<section id="updates" class="section alt"><div class="container"><p class="eyebrow">08 — UPDATES</p><div class="section-head"><h2>Latest from my work.</h2><p>News, reflections, conference updates and new academic milestones.</p></div>${posts||'<div class="publication-note"><strong>Coming soon.</strong><p>New updates will appear here when published from the Admin Dashboard.</p></div>'}</div></section>
-<section id="cv" class="section cv-section"><div class="container cv-box"><div><p class="eyebrow">09 — CURRICULUM VITAE</p><h2>The complete professional profile.</h2><p>The current CV is available as a downloadable PDF.</p></div><a class="btn primary" href="assets/CV.pdf" download>Download CV ↓</a></div></section>
-<section id="contact" class="section"><div class="container contact"><div><p class="eyebrow">10 — CONTACT</p><h2>Let's build something useful.</h2><p>For research collaborations, academic opportunities, teaching, scientific projects or professional inquiries.</p></div><div class="contact-card"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><div class="socials">${social(p.orcid,"ORCID")}${social(p.linkedin,"LinkedIn")}${social(p.scholar,"Google Scholar")}${social(p.researchgate,"ResearchGate")}</div></div></div></section>
-</main><footer><div class="container footer"><span>© 2026 ${esc(p.name)}</span><span>Medicine · Research · Education</span><a href="/admin/">Admin</a></div></footer><script src="script.js"></script></body></html>`;
-fs.writeFileSync(path.join(out,"index.html"),html);
-fs.copyFileSync("style.css",path.join(out,"style.css")); fs.copyFileSync("script.js",path.join(out,"script.js")); fs.cpSync("assets",path.join(out,"assets"),{recursive:true});
-fs.cpSync("admin",path.join(out,"admin"),{recursive:true});
+
+<section class="hero">
+
+<div class="container hero-grid">
+
+<div>
+
+<p class="eyebrow">
+MEDICINE · RESEARCH · EDUCATION
+</p>
+
+<h1>
+Elalim<br>
+<span>Mohamed</span>
+</h1>
+
+<p class="role">
+${esc(p.title).replaceAll(" · ", " <b>·</b> ")}
+</p>
+
+<p class="lead">
+${esc(p.tagline)}
+</p>
+
+<div class="actions">
+
+<a class="btn primary" href="#research">
+Explore my research
+</a>
+
+<a class="btn ghost" href="assets/CV.pdf" download>
+Download CV
+</a>
+
+</div>
+
+<div class="mini-links">
+
+<a href="#contact">
+Research collaborations
+</a>
+
+<span>•</span>
+
+<a href="#education">
+Education & training
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-card">
+
+<div class="portrait">
+<img src="${esc(image)}" alt="${esc(p.name)}">
+</div>
+
+<p class="card-label">
+ACADEMIC PROFILE
+</p>
+
+<h3>
+Clinical medicine, research & medical education
+</h3>
+
+<div class="line"></div>
+
+<p>
+Medical graduate with First Class Honors, research and teaching experience,
+leadership in research education, and a growing academic focus on
+evidence-based medicine and neurosurgical research.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="stats">
+<div class="container stats-grid">
+${stats}
+</div>
+</section>
+
+<section id="about" class="section">
+
+<div class="container split">
+
+<div>
+<p class="eyebrow">01 — ABOUT</p>
+<h2>${esc(a.headline)}</h2>
+</div>
+
+<div>
+
+<p class="large">
+${esc(a.intro)}
+</p>
+
+<p>
+${esc(a.body1)}
+</p>
+
+<p>
+${esc(a.body2)}
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="research" class="section alt">
+
+<div class="container">
+
+<p class="eyebrow">
+02 — RESEARCH
+</p>
+
+<div class="section-head">
+
+<h2>
+Questions that matter.
+</h2>
+
+<p>
+Research interests that connect clinical practice,
+evidence generation and medical education.
+</p>
+
+</div>
+
+<div class="cards">
+${research}
+</div>
+
+</div>
+
+</section>
+
+<section id="publications" class="section">
+
+<div class="container">
+
+<p class="eyebrow">
+03 — PUBLICATIONS
+</p>
+
+<div class="section-head">
+
+<h2>
+Selected scientific work.
+</h2>
+
+<p>
+A growing record of publications, research manuscripts and academic projects.
+</p>
+
+</div>
+
+<div class="pub-list">
+${pubs}
+</div>
+
+<p class="small-note">
+New publications can be added from the private Admin Dashboard without editing website code.
+</p>
+
+</div>
+
+</section>
+
+<section id="education" class="section alt">
+
+<div class="container split">
+
+<div>
+
+<p class="eyebrow">
+04 — MEDICAL EDUCATION
+</p>
+
+<h2>
+Teaching research as a practical skill.
+</h2>
+
+</div>
+
+<div>
+
+<p class="large">
+${esc(data.education.intro)}
+</p>
+
+<div class="pill-list">
+${tags}
+</div>
+
+<div class="education-card">
+
+<strong>
+ACMER
+</strong>
+
+<p>
+Founder & Head of Board, Abou-aloloum Center for Medical Education and Research (2024–Present).
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="experience" class="section">
+
+<div class="container">
+
+<p class="eyebrow">
+05 — EXPERIENCE
+</p>
+
+<div class="timeline">
+${exp}
+</div>
+
+</div>
+
+</section>
+
+<section id="projects" class="section alt">
+
+<div class="container">
+
+<p class="eyebrow">
+06 — LEADERSHIP & PROJECTS
+</p>
+
+<div class="projects">
+${projects}
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container split">
+
+<div>
+
+<p class="eyebrow">
+07 — RECOGNITION
+</p>
+
+<h2>
+Academic engagement beyond the classroom.
+</h2>
+
+</div>
+
+<div class="recognition">
+${rec}
+</div>
+
+</div>
+
+</section>
+
+<section id="updates" class="section alt">
+
+<div class="container">
+
+<p class="eyebrow">
+08 — UPDATES
+</p>
+
+<div class="section-head">
+
+<h2>
+Latest from my work.
+</h2>
+
+<p>
+Research insights, reflections, conference updates and new academic milestones.
+</p>
+
+</div>
+
+${
+  posts ||
+  `<div class="publication-note">
+    <strong>Coming soon.</strong>
+    <p>
+      New updates will appear here when published from the Admin Dashboard.
+    </p>
+  </div>`
+}
+
+</div>
+
+</section>
+
+<section id="cv" class="section cv-section">
+
+<div class="container cv-box">
+
+<div>
+
+<p class="eyebrow">
+09 — CURRICULUM VITAE
+</p>
+
+<h2>
+The complete professional profile.
+</h2>
+
+<p>
+The current CV is available as a downloadable PDF.
+</p>
+
+</div>
+
+<a class="btn primary" href="assets/CV.pdf" download>
+Download CV ↓
+</a>
+
+</div>
+
+</section>
+
+<section id="contact" class="section">
+
+<div class="container contact">
+
+<div>
+
+<p class="eyebrow">
+10 — CONTACT
+</p>
+
+<h2>
+Let's build something useful.
+</h2>
+
+<p>
+For research collaborations, academic opportunities,
+teaching, scientific projects or professional inquiries.
+</p>
+
+</div>
+
+<div class="contact-card">
+
+<a href="mailto:${esc(p.email)}">
+${esc(p.email)}
+</a>
+
+<div class="socials">
+
+${social(p.orcid, "ORCID")}
+${social(p.linkedin, "LinkedIn")}
+${social(p.scholar, "Google Scholar")}
+${social(p.researchgate, "ResearchGate")}
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<div class="container footer">
+
+<span>
+© 2026 ${esc(p.name)}
+</span>
+
+<span>
+Medicine · Research · Education
+</span>
+
+<a href="/admin/">
+Admin
+</a>
+
+</div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>`;
+
+/* Write main page */
+fs.writeFileSync(
+  path.join(out, "index.html"),
+  html
+);
+
+/* =========================
+   CREATE ARTICLE PAGES
+========================= */
+
+function formatContent(content = "") {
+  return String(content)
+    .split(/\n\s*\n/)
+    .map(paragraph => {
+      const text = paragraph.trim();
+
+      if (!text) return "";
+
+      if (text.startsWith("## ")) {
+        return `<h2>${esc(text.slice(3))}</h2>`;
+      }
+
+      if (text.startsWith("### ")) {
+        return `<h3>${esc(text.slice(4))}</h3>`;
+      }
+
+      if (text.startsWith("- ")) {
+        const items = text
+          .split("\n")
+          .filter(x => x.trim().startsWith("- "))
+          .map(x => `<li>${esc(x.trim().slice(2))}</li>`)
+          .join("");
+
+        return `<ul>${items}</ul>`;
+      }
+
+      return `<p>${esc(text).replace(/\n/g, "<br>")}</p>`;
+    })
+    .join("\n");
+}
+
+(data.posts || []).forEach(post => {
+
+  const slug = post.slug || slugify(post.title);
+
+  const postDir = path.join(
+    out,
+    "updates",
+    slug
+  );
+
+  fs.mkdirSync(postDir, { recursive: true });
+
+  const postDate = (post.date || "").slice(0, 10);
+
+  const articleContent = formatContent(
+    post.content || ""
+  );
+
+  const articleHtml = `<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<meta
+  name="description"
+  content="${esc(post.excerpt || post.title)}"
+>
+
+<meta
+  name="author"
+  content="${esc(p.full_name)}"
+>
+
+<meta
+  property="og:title"
+  content="${esc(post.title)}"
+>
+
+<meta
+  property="og:description"
+  content="${esc(post.excerpt || post.title)}"
+>
+
+<meta
+  property="og:type"
+  content="article"
+>
+
+<title>
+${esc(post.title)} | ${esc(p.name)}
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+rel="stylesheet"
+>
+
+<link
+rel="stylesheet"
+href="/style.css"
+>
+
+</head>
+
+<body>
+
+<header class="nav-wrap">
+
+<nav class="nav container">
+
+<a class="brand" href="/">
+ELALIM<span>MOHAMED</span>
+</a>
+
+<div class="links">
+
+<a href="/#about">About</a>
+<a href="/#research">Research</a>
+<a href="/#publications">Publications</a>
+<a href="/#education">Education</a>
+<a href="/#experience">Experience</a>
+<a href="/#projects">Projects</a>
+<a href="/#updates">Updates</a>
+<a href="/#cv">CV</a>
+<a href="/#contact">Contact</a>
+
+</div>
+
+</nav>
+
+</header>
+
+<main>
+
+<article class="article-page">
+
+<div class="container article-container">
+
+<a class="back-link" href="/#updates">
+← Back to Updates
+</a>
+
+<p class="eyebrow">
+${esc(post.category || "RESEARCH INSIGHT")}
+</p>
+
+<h1>
+${esc(post.title)}
+</h1>
+
+${
+  post.subtitle
+    ? `<p class="article-subtitle">${esc(post.subtitle)}</p>`
+    : ""
+}
+
+<p class="article-date">
+${esc(postDate)}
+</p>
+
+<div class="article-content">
+
+${articleContent}
+
+</div>
+
+${
+  post.doi
+    ? `
+    <div class="article-source">
+      <strong>Read the full study</strong>
+      <p>
+        For the complete methodology, statistical analysis and detailed findings,
+        please refer to the full research article.
+      </p>
+      <a class="btn primary"
+         href="${esc(post.doi)}"
+         target="_blank"
+         rel="noopener">
+         Read the Full Study →
+      </a>
+    </div>
+    `
+    : ""
+}
+
+<div class="article-footer">
+
+<p>
+<strong>About the author</strong>
+</p>
+
+<p>
+${esc(p.full_name)} — ${esc(p.title)}
+</p>
+
+<a class="text-link" href="/">
+Visit my academic profile →
+</a>
+
+</div>
+
+</div>
+
+</article>
+
+</main>
+
+<footer>
+
+<div class="container footer">
+
+<span>
+© 2026 ${esc(p.name)}
+</span>
+
+<span>
+Medicine · Research · Education
+</span>
+
+<a href="/admin/">
+Admin
+</a>
+
+</div>
+
+</footer>
+
+<script src="/script.js"></script>
+
+</body>
+
+</html>`;
+
+  fs.writeFileSync(
+    path.join(postDir, "index.html"),
+    articleHtml
+  );
+});
+
+/* =========================
+   COPY STATIC FILES
+========================= */
+
+fs.copyFileSync(
+  "style.css",
+  path.join(out, "style.css")
+);
+
+fs.copyFileSync(
+  "script.js",
+  path.join(out, "script.js")
+);
+
+fs.cpSync(
+  "assets",
+  path.join(out, "assets"),
+  { recursive: true }
+);
+
+fs.cpSync(
+  "admin",
+  path.join(out, "admin"),
+  { recursive: true }
+);
+
+console.log(
+  `Build complete: ${data.posts?.length || 0} update(s) generated.`
+);
